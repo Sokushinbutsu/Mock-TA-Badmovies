@@ -40,18 +40,21 @@ class Search extends React.Component {
 
         {/* Make the select options dynamic from genres !!! */}
         {/* How can you tell which option has been selected from here? */}
-
-        <select>
-          {this.state.genres.map(genre => (
-            <option key={genre.name} value={genre.name}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
-        <br />
-        <br />
-
-        <button>Search</button>
+        <form onSubmit={this.props.handleFormSubmit}>
+          <select
+            value={this.props.selected}
+            onChange={this.props.handleFormChange}
+          >
+            {this.state.genres.map(genre => (
+              <option key={genre.name} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }

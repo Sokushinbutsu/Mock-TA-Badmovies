@@ -12,11 +12,13 @@ class App extends React.Component {
       movies: [{ deway: 'movies' }],
       favorites: [{ deway: 'favorites' }],
       showFaves: false,
-      genres: []
+      genres: [],
+      selected: ''
     };
 
     // you might have to do something important here!
-    // this.getMovies = this.getMovies.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidMount() {}
@@ -40,6 +42,15 @@ class App extends React.Component {
     });
   }
 
+  handleFormChange(event) {
+    this.setState({ selected: event.target.value });
+  }
+
+  handleFormSubmit(event) {
+    console.log('submitted!');
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="app">
@@ -51,6 +62,9 @@ class App extends React.Component {
           <Search
             swapFavorites={this.swapFavorites}
             showFaves={this.state.showFaves}
+            selected={this.state.selected}
+            handleFormChange={this.handleFormChange}
+            handleFormSubmit={this.handleFormSubmit}
           />
           <Movies
             movies={
