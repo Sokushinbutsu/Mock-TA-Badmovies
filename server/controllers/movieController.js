@@ -17,13 +17,12 @@ module.exports = {
     // and sort them by horrible votes using the search parameters in the API
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&with_genres=${
-          req.body.genreId
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=true&with_genres=${
+          req.params.id
         }`
       )
       .then(movies => {
-        console.log(movies);
-        res.send(movies);
+        res.send(JSON.stringify(movies.data.results));
       })
       .catch(err => {
         res.status(500).send(err);
@@ -38,7 +37,6 @@ module.exports = {
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
       )
       .then(response => {
-        console.log(response);
         res.send(response.data);
       })
       .catch(err => {

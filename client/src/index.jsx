@@ -25,6 +25,16 @@ class App extends React.Component {
 
   getMovies() {
     // make an axios request to your server on the GET SEARCH endpoint
+    axios
+      .get(`/movies/search/${this.state.selected}`)
+      .then(movies => {
+        this.setState({
+          movies: movies.data
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   saveMovie() {
@@ -47,8 +57,9 @@ class App extends React.Component {
   }
 
   handleFormSubmit(event) {
-    console.log('submitted!');
     event.preventDefault();
+
+    this.getMovies();
   }
 
   render() {

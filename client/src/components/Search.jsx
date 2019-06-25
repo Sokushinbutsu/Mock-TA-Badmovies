@@ -46,7 +46,7 @@ class Search extends React.Component {
             onChange={this.props.handleFormChange}
           >
             {this.state.genres.map(genre => (
-              <option key={genre.name} value={genre.name}>
+              <option key={genre.name} value={genre.id}>
                 {genre.name}
               </option>
             ))}
