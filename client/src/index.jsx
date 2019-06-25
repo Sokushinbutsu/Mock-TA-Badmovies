@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 // import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx';
 import Movies from './components/Movies.jsx';
@@ -17,26 +16,13 @@ class App extends React.Component {
     };
 
     // you might have to do something important here!
-    this.getMovies = this.getMovies.bind(this);
+    // this.getMovies = this.getMovies.bind(this);
   }
 
-  componentDidMount() {
-    this.getMovies();
-  }
+  componentDidMount() {}
 
   getMovies() {
     // make an axios request to your server on the GET SEARCH endpoint
-    axios
-      .get('/movies/genres')
-      .then(genres => {
-        this.setState({
-          genres: genres.data.genres
-        });
-        console.log(this.state);
-      })
-      .catch(err => {
-        console.error(err);
-      });
   }
 
   saveMovie() {
