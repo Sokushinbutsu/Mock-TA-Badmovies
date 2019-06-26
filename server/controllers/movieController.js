@@ -7,12 +7,6 @@ var router = express.Router();
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
-    // get the search genre
-    // https://www.themoviedb.org/account/signup
-    // get your API KEY
-    // use this endpoint to search for movies by genres, you will need an API key
-    // https://api.themoviedb.org/3/discover/movie
-    // and sort them by horrible votes using the search parameters in the API
     axios
       .get(
         `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=true&with_genres=${
@@ -27,9 +21,6 @@ module.exports = {
       });
   },
   getGenres: (req, res) => {
-    // make an axios request to get the list of official genres
-    // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
-    // send back
     axios
       .get(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
@@ -38,14 +29,14 @@ module.exports = {
         res.send(response.data);
       })
       .catch(err => {
-        res.status(500).send(err);
+        res.status(500).send();
       });
   },
   saveMovie: (req, res) => {
     let favorite = new Favorites({
       popularity: req.body.popularity,
       title: req.body.title,
-      image: req.body.image,
+      poster_path: req.body.poster_path,
       release_date: req.body.release_date
     });
 
@@ -54,10 +45,17 @@ module.exports = {
         console.log('FAVORITE SAVE ERROR: ', err);
         res.status(500).send();
       } else {
-        console.log('this is the result: ', result);
         res.status(201).send();
       }
     });
   },
-  deleteMovie: (req, res) => {}
+  deleteMovie: (req, res) => {
+    Favorites.deleteOne({ title: req.body.title }, function(err) {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(204).send();
+      }
+    });
+  }
 };

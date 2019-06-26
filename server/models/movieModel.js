@@ -1,3 +1,4 @@
+const mongoDb = require('../../db/mongodb');
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -5,7 +6,7 @@ const Schema = mongoose.Schema;
 const favoritesSchema = new Schema({
   popularity: Number,
   title: String,
-  image: String,
+  poster_path: String,
   release_date: String
 });
 

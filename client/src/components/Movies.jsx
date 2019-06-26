@@ -20,7 +20,7 @@ class Movies extends React.Component {
             data-title={movie.title}
             data-popularity={movie.popularity}
             data-release_date={movie.release_date}
-            data-image={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            data-poster_path={movie.poster_path}
             onClick={this.props.handleMovieClick}
           >
             <img
