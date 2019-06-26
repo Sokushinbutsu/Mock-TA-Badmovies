@@ -43,14 +43,14 @@ class App extends React.Component {
 
   saveMovie(data) {
     // same as above but do something diff
-    const { title, popularity, release_date, image } = data;
-
+    const { title, popularity, release_date, poster_path } = data;
+    console.log('this is from saveMovie: ', data);
     axios
       .post('/movies/save', {
         title: title,
         popularity: popularity.toString(),
         release_date: release_date,
-        image: image
+        poster_path
       })
       .then(response => {
         this.setState({

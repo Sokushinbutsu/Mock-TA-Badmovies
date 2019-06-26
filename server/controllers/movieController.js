@@ -45,7 +45,7 @@ module.exports = {
     let favorite = new Favorites({
       popularity: req.body.popularity,
       title: req.body.title,
-      image: req.body.image,
+      poster_path: req.body.poster_path,
       release_date: req.body.release_date
     });
 
