@@ -18,7 +18,8 @@ class App extends React.Component {
     // you might have to do something important here!
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleMovieClick = this.handleMovieClick.bind(this);
+    this.handleMovieClickSave = this.handleMovieClickSave.bind(this);
+    this.handleMovieClickDelete = this.handleMovieClickDelete.bind(this);
     this.saveMovie = this.saveMovie.bind(this);
     this.swapFavorites = this.swapFavorites.bind(this);
   }
@@ -42,9 +43,7 @@ class App extends React.Component {
   }
 
   saveMovie(data) {
-    // same as above but do something diff
     const { title, popularity, release_date, poster_path } = data;
-    console.log('this is from saveMovie: ', data);
     axios
       .post('/movies/save', {
         title: title,
@@ -62,8 +61,22 @@ class App extends React.Component {
       });
   }
 
-  deleteMovie() {
-    // same as above but do something diff
+  deleteMovie(data) {
+    const { title } = data;
+    axios
+      .delete('/movies/delete', {
+        title: title
+      })
+      .then(response => {
+        this.setState({
+          favorites: this.state.favorites.filter(movie => {
+            return movie.title !== title;
+          })
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   swapFavorites() {
@@ -83,8 +96,12 @@ class App extends React.Component {
     this.getMovies();
   }
 
-  handleMovieClick(event) {
+  handleMovieClickSave(event) {
     this.saveMovie(Object.assign({}, event.currentTarget.dataset));
+  }
+
+  handleMovieClickDelete(event) {
+    this.deleteMovie(Object.assign({}, event.currentTarget.dataset));
   }
 
   render() {
@@ -108,7 +125,11 @@ class App extends React.Component {
               this.state.showFaves ? this.state.favorites : this.state.movies
             }
             showFaves={this.state.showFaves}
-            handleMovieClick={this.handleMovieClick}
+            handleMovieClick={
+              this.state.showFaves
+                ? this.handleMovieClickDelete
+                : this.handleMovieClickSave
+            }
           />
         </div>
       </div>
