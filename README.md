@@ -31,3 +31,13 @@ componentDidMount: Check if genre collection exists, Get list of movie genres fr
 display default genre (horror) in table.
 On search:
 query API with /discover/movie?with_genres=878&sort_by=vote_average.desc
+
+let save = (repos) => {
+return Promise.all(repos.map(repo => {
+return Repo.findOneAndUpdate(
+{url: repo.html_url}.
+{everything else},
+{upsert: true}
+)
+}))
+}

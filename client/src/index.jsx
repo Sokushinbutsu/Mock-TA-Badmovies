@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [{ deway: 'movies' }],
+      movies: [],
       favorites: [{ deway: 'favorites' }],
       showFaves: false,
       genres: [],
@@ -77,6 +77,7 @@ class App extends React.Component {
             handleFormChange={this.handleFormChange}
             handleFormSubmit={this.handleFormSubmit}
           />
+
           <Movies
             movies={
               this.state.showFaves ? this.state.favorites : this.state.movies

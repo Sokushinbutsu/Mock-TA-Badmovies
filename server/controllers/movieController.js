@@ -4,7 +4,7 @@ const axios = require('axios');
 var express = require('express');
 var router = express.Router();
 
-// const apiHelpers = require('../helpers/apiHelpers.js');
+const apiHelpers = require('../helpers/apiHelpers.js');
 
 //Return requests to the client
 module.exports = {
