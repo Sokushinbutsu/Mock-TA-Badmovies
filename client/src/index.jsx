@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleMovieClick = this.handleMovieClick.bind(this);
+    this.saveMovie = this.saveMovie.bind(this);
   }
 
   componentDidMount() {}
@@ -37,9 +38,25 @@ class App extends React.Component {
       });
   }
 
-  saveMovie() {
+  saveMovie(data) {
     // same as above but do something diff
-    axios.post('/movies/save').then();
+    const { title, popularity, release_date, image } = data;
+
+    axios
+      .post('/movies/save', {
+        title: title,
+        popularity: popularity.toString(),
+        release_date: release_date,
+        image: image
+      })
+      .then(response => {
+        this.setState({
+          favorites: [...this.state.favorites, JSON.parse(response.config.data)]
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   deleteMovie() {
@@ -64,7 +81,7 @@ class App extends React.Component {
   }
 
   handleMovieClick(event) {
-    console.log(event.currentTarget.dataset);
+    this.saveMovie(Object.assign({}, event.currentTarget.dataset));
   }
 
   render() {
