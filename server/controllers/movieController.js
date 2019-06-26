@@ -23,7 +23,7 @@ module.exports = {
         res.send(JSON.stringify(movies.data.results));
       })
       .catch(err => {
-        res.status(500).send(err);
+        res.status(500).send();
       });
   },
   getGenres: (req, res) => {
@@ -38,7 +38,7 @@ module.exports = {
         res.send(response.data);
       })
       .catch(err => {
-        res.status(500).send(err);
+        res.status(500).send();
       });
   },
   saveMovie: (req, res) => {
@@ -54,7 +54,6 @@ module.exports = {
         console.log('FAVORITE SAVE ERROR: ', err);
         res.status(500).send();
       } else {
-        console.log('this is the result: ', result);
         res.status(201).send();
       }
     });

@@ -32,7 +32,6 @@ class App extends React.Component {
     axios
       .get(`/movies/search/${this.state.selected}`)
       .then(movies => {
-        console.log(movies);
         this.setState({
           movies: movies.data
         });
