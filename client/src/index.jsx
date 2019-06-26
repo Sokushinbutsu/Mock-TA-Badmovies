@@ -12,7 +12,7 @@ class App extends React.Component {
       favorites: [],
       showFaves: false,
       genres: [],
-      selected: ''
+      selected: 16
     };
 
     // you might have to do something important here!
@@ -20,15 +20,19 @@ class App extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleMovieClick = this.handleMovieClick.bind(this);
     this.saveMovie = this.saveMovie.bind(this);
+    this.swapFavorites = this.swapFavorites.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getMovies();
+  }
 
   getMovies() {
     // make an axios request to your server on the GET SEARCH endpoint
     axios
       .get(`/movies/search/${this.state.selected}`)
       .then(movies => {
+        console.log(movies);
         this.setState({
           movies: movies.data
         });
