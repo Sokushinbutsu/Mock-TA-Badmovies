@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx';
 import Movies from './components/Movies.jsx';
 import axios from 'axios';
@@ -10,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      favorites: [{ deway: 'favorites' }],
+      favorites: [],
       showFaves: false,
       genres: [],
       selected: ''

@@ -1,10 +1,8 @@
-const movieModel = require('../models/movieModel.js');
+const Favorites = require('../models/movieModel.js');
 const { API_KEY } = require('../../config.js');
 const axios = require('axios');
 var express = require('express');
 var router = express.Router();
-
-const apiHelpers = require('../helpers/apiHelpers.js');
 
 //Return requests to the client
 module.exports = {
@@ -43,6 +41,23 @@ module.exports = {
         res.status(500).send(err);
       });
   },
-  saveMovie: (req, res) => {},
+  saveMovie: (req, res) => {
+    let favorite = new Favorites({
+      popularity: req.body.popularity,
+      title: req.body.title,
+      image: req.body.image,
+      release_date: req.body.release_date
+    });
+
+    favorite.save(function(err, result) {
+      if (err) {
+        console.log('FAVORITE SAVE ERROR: ', err);
+        res.status(500).send();
+      } else {
+        console.log('this is the result: ', result);
+        res.status(201).send();
+      }
+    });
+  },
   deleteMovie: (req, res) => {}
 };

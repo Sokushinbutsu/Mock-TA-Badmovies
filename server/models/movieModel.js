@@ -5,6 +5,16 @@
 const mongoDb = require('../../db/mongodb');
 const mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({ id: String, name: String, rating: Number });
+const Schema = mongoose.Schema;
 
-module.exports = {};
+const favoritesSchema = new Schema({
+  popularity: Number,
+  title: String,
+  image: String,
+  release_date: String
+});
+
+let Favorites = mongoose.model('Favorites', favoritesSchema);
+
+// module.exports = {};
+module.exports = Favorites;
