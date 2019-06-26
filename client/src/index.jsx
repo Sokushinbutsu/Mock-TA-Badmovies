@@ -18,6 +18,7 @@ class App extends React.Component {
     // you might have to do something important here!
     this.handleFormChange = this.handleFormChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleMovieClick = this.handleMovieClick.bind(this);
   }
 
   componentDidMount() {}
@@ -38,6 +39,7 @@ class App extends React.Component {
 
   saveMovie() {
     // same as above but do something diff
+    axios.post('/movies/save').then();
   }
 
   deleteMovie() {
@@ -61,6 +63,10 @@ class App extends React.Component {
     this.getMovies();
   }
 
+  handleMovieClick(event) {
+    console.log(event.currentTarget.dataset);
+  }
+
   render() {
     return (
       <div className="app">
@@ -82,6 +88,7 @@ class App extends React.Component {
               this.state.showFaves ? this.state.favorites : this.state.movies
             }
             showFaves={this.state.showFaves}
+            handleMovieClick={this.handleMovieClick}
           />
         </div>
       </div>
