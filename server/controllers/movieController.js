@@ -23,7 +23,7 @@ module.exports = {
         res.send(JSON.stringify(movies.data.results));
       })
       .catch(err => {
-        res.status(500).send(err);
+        res.status(500).send();
       });
   },
   getGenres: (req, res) => {
