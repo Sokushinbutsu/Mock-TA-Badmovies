@@ -1,7 +1,7 @@
-const movieModel = require('../models/movieModel.js');
+// const movieModel = require('../models/movieModel.js');
 const { API_KEY } = require('../../config');
 const axios = require('axios');
-
+const favorites = require('../../db/sql').connection;
 //Return requests to the client
 module.exports = {
   getSearch: (req, res) => {
@@ -20,7 +20,6 @@ module.exports = {
         }`
       )
       .then(movies => {
-        console.log(movies);
         res.send(movies.data.results);
       })
       .catch(err => {
@@ -42,6 +41,17 @@ module.exports = {
         res.status(500).send();
       });
   },
-  saveMovie: (req, res) => {},
+  saveMovie: (req, res) => {
+    console.log(req.body);
+    favorites.query(
+      `INSERT INTO favorites (poster_path, title, release_date) VALUES ("${
+        req.body.movie.poster_path
+      }", "${req.body.movie.title}", "${req.body.movie.release_data}")`,
+      function(error, results) {
+        if (error) console.error(error);
+        else console.log(results);
+      }
+    );
+  },
   deleteMovie: (req, res) => {}
 };

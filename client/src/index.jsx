@@ -1,30 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-// import AnyComponent from './components/filename.jsx'
 import Search from './components/Search.jsx';
 import Movies from './components/Movies.jsx';
+import Axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [{ deway: 'movies' }],
+      movies: [],
       favorites: [],
       showFaves: false,
-      selected: 18
+      selected: 878
     };
 
     // you might have to do something important here!
     this.handleGenreChange = this.handleGenreChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.getMovies = this.getMovies.bind(this);
+    this.handleMovieClick = this.handleMovieClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.getMovies();
   }
 
   getMovies() {
     // make an axios request to your server on the GET SEARCH endpoint
+    Axios.get(`/movies/search/${this.state.selected}`)
+      .then(movies => {
+        console.log(movies);
+        this.setState({
+          movies: movies.data
+        });
+      })
+      .catch(err => {
+        alert('An error occurred getting your movies');
+      });
   }
 
-  saveMovie() {
-    // same as above but do something diff
+  saveMovie(movie) {
+    Axios.post('/movies/save', {
+      movie: movie
+    }).then(result => {
+      this.setState({});
+    });
   }
 
   deleteMovie() {
@@ -44,6 +64,11 @@ class App extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.getMovies();
+  }
+
+  handleMovieClick(e) {
+    this.saveMovie(Object.assign({}, e.currentTarget.dataset));
   }
 
   render() {
@@ -66,6 +91,7 @@ class App extends React.Component {
               this.state.showFaves ? this.state.favorites : this.state.movies
             }
             showFaves={this.state.showFaves}
+            handleMovieClick={this.handleMovieClick}
           />
         </div>
       </div>
