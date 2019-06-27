@@ -35,8 +35,8 @@ module.exports = {
       .get(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
       )
-      .then(genres => {
-        res.send(genres);
+      .then(results => {
+        res.send(results.data.genres);
       })
       .catch(err => {
         res.status(500).send();
