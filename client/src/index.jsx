@@ -19,6 +19,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getMovies = this.getMovies.bind(this);
     this.handleMovieClick = this.handleMovieClick.bind(this);
+    this.saveMovie = this.saveMovie.bind(this);
   }
 
   componentDidMount() {
@@ -42,9 +43,15 @@ class App extends React.Component {
   saveMovie(movie) {
     Axios.post('/movies/save', {
       movie: movie
-    }).then(result => {
-      this.setState({});
-    });
+    })
+      .then(() => {
+        this.setState({
+          favorites: [...this.state.favorites, movie]
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   deleteMovie() {

@@ -42,14 +42,17 @@ module.exports = {
       });
   },
   saveMovie: (req, res) => {
-    console.log(req.body);
     favorites.query(
       `INSERT INTO favorites (poster_path, title, release_date) VALUES ("${
         req.body.movie.poster_path
-      }", "${req.body.movie.title}", "${req.body.movie.release_data}")`,
+      }", "${req.body.movie.title}", "${req.body.movie.release_date}")`,
       function(error, results) {
-        if (error) console.error(error);
-        else console.log(results);
+        if (error) {
+          console.error(error);
+          res.status(500).send();
+        } else {
+          res.status(201).send();
+        }
       }
     );
   },
