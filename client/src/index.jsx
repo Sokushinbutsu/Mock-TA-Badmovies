@@ -20,6 +20,7 @@ class App extends React.Component {
     this.getMovies = this.getMovies.bind(this);
     this.handleMovieClick = this.handleMovieClick.bind(this);
     this.saveMovie = this.saveMovie.bind(this);
+    this.swapFavorites = this.swapFavorites.bind(this);
   }
 
   componentDidMount() {
@@ -54,9 +55,7 @@ class App extends React.Component {
       });
   }
 
-  deleteMovie() {
-    // same as above but do something diff
-  }
+  deleteMovie() {}
 
   swapFavorites() {
     //dont touch
