@@ -56,5 +56,17 @@ module.exports = {
       }
     );
   },
-  deleteMovie: (req, res) => {}
+  deleteMovie: (req, res) => {
+    favorites.query(
+      `DELETE FROM favorites WHERE title = "${req.body.title}";`,
+      function(error) {
+        if (error) {
+          console.error(error);
+          res.status(500).send();
+        } else {
+          res.status(204).send();
+        }
+      }
+    );
+  }
 };

@@ -55,7 +55,26 @@ class App extends React.Component {
       });
   }
 
-  deleteMovie() {}
+  deleteMovie(movie) {
+    console.log(movie);
+    Axios.delete('/movies/delete', {
+      data: movie
+    })
+      .then(() => {
+        this.setState(state => {
+          const favorites = state.favorites.filter(
+            fave => fave.title !== movie.title
+          );
+
+          return {
+            favorites
+          };
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   swapFavorites() {
     //dont touch
@@ -74,7 +93,11 @@ class App extends React.Component {
   }
 
   handleMovieClick(e) {
-    this.saveMovie(Object.assign({}, e.currentTarget.dataset));
+    if (this.state.showFaves === false) {
+      this.saveMovie(Object.assign({}, e.currentTarget.dataset));
+    } else {
+      this.deleteMovie(Object.assign({}, e.currentTarget.dataset));
+    }
   }
 
   render() {
